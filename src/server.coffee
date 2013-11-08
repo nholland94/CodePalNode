@@ -1,4 +1,4 @@
-require('better-require')()
+# require('better-require')()
 http = require('http')
 
 server = http.createServer (req, res) ->
