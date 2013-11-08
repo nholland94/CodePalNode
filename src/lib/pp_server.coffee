@@ -13,6 +13,12 @@ socketIOListen = (server) ->
         (data) ->
           socket.broadcast.emit('editorUpdate', data)
       )
+
+      setInterval(
+        ->
+          socket.emit('test', 'testing sockets')
+        1000
+      )
   )
 
 exports.socketIOListen = socketIOListen
