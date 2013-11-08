@@ -1,0 +1,11 @@
+{
+  "name": "code-pal-node",
+  "version": "0.0.1",
+  "description": "Pair programming server for Code-pal",
+  "main": "server",
+  "dependencies": {
+    "socket.io": "~0.9.6",
+    "mime": "~1.2.7",
+    "better-require": "0.0.3"
+  }
+}
