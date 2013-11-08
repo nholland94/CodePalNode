@@ -7,6 +7,6 @@ server = http.createServer (req, res) ->
 
 server.listen(8080)
 
-socketIOListen = require('./lib/pp_server.coffee').socketIOListen
+socketIOListen = require('./lib/pp_server.js').socketIOListen
 
 socketIOListen(server)
