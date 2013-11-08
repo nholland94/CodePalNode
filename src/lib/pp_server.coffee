@@ -3,10 +3,20 @@ socketio = require('socket.io')
 socketIOListen = (server) ->
   io = socketio.listen(server)
 
+  count = 0
+
   io.sockets.on(
     'connection'
     (socket) ->
       console.log('recieved connection from: ', socket.id)
+      console.log('there are a total of ' + count + ' users connected')
+      count++
+
+      socket.on(
+        'disconnect'
+        (data) ->
+          count--
+      )
 
       socket.on(
         'editorUpdate'
@@ -17,7 +27,13 @@ socketIOListen = (server) ->
       socket.on(
         'requestEditorValues'
         (data) ->
-          socket.broadcast.emit('requestEditorValues')
+          if count == 0
+            socket.emit(
+              'editorValues'
+              'no_data'
+            )
+          else
+            socket.broadcast.emit('requestEditorValues')
       )
 
       socket.on(
