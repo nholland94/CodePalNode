@@ -7,6 +7,12 @@ socketIOListen = (server) ->
     'connection'
     (socket) ->
       console.log('recieved connection from: ', sockect.id)
+
+      socket.on(
+        'editorUpdate'
+        (data) ->
+          socket.broadcast.emit('editorUpdate', data)
+      )
   )
 
 exports.socketIOListen = socketIOListen
