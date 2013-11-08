@@ -14,10 +14,16 @@ socketIOListen = (server) ->
           socket.broadcast.emit('editorUpdate', data)
       )
 
-      setInterval(
-        ->
-          socket.emit('test', 'testing sockets')
-        1000
+      socket.on(
+        'requestEditorValues'
+        (data) ->
+          socket.broadcast.emit('requestEditorValues')
+      )
+
+      socket.on(
+        'editorValues'
+        (data) ->
+          socket.broadcast.emit('editorValues')
       )
   )
 
