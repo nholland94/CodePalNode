@@ -1,9 +1,9 @@
 socketio = require('socket.io')
 
+count = 0
+
 socketIOListen = (server) ->
   io = socketio.listen(server)
-
-  count = 0
 
   io.sockets.on(
     'connection'
