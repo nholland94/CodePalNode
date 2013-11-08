@@ -1,5 +1,6 @@
 # require('better-require')()
 http = require('http')
+fs = require('fs')
 
 server = http.createServer (req, res) ->
   res.writeHead(200)

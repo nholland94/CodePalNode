@@ -6,7 +6,7 @@ socketIOListen = (server) ->
   io.sockets.on(
     'connection'
     (socket) ->
-      console.log('recieved connection from: ', sockect.id)
+      console.log('recieved connection from: ', socket.id)
 
       socket.on(
         'editorUpdate'
