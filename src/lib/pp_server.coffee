@@ -9,12 +9,13 @@ socketIOListen = (server) ->
     'connection'
     (socket) ->
       console.log('recieved connection from: ', socket.id)
-      console.log('there are a total of ' + count + ' users connected')
       count++
+      console.log('there are a total of ' + count + ' users connected')
 
       socket.on(
         'disconnect'
         (data) ->
+          console.log('user disconnected')
           count--
       )
 
@@ -39,7 +40,7 @@ socketIOListen = (server) ->
       socket.on(
         'editorValues'
         (data) ->
-          socket.broadcast.emit('editorValues')
+          socket.broadcast.emit('editorValues', data)
       )
   )
 
