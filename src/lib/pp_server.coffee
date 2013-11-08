@@ -26,6 +26,12 @@ socketIOListen = (server) ->
       )
 
       socket.on(
+        'editorValues'
+        (data) ->
+          socket.broadcast.emit('editorValues', data)
+      )
+
+      socket.on(
         'requestEditorValues'
         (data) ->
           if count == 1
@@ -35,12 +41,6 @@ socketIOListen = (server) ->
             )
           else
             socket.broadcast.emit('requestEditorValues')
-      )
-
-      socket.on(
-        'editorValues'
-        (data) ->
-          socket.broadcast.emit('editorValues', data)
       )
   )
 
