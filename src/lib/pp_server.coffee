@@ -27,7 +27,7 @@ socketIOListen = (server) ->
       socket.on(
         'requestEditorValues'
         (data) ->
-          if count == 0
+          if count == 1
             socket.emit(
               'editorValues'
               'no_data'
