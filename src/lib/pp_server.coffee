@@ -2,6 +2,9 @@ socketio = require('socket.io')
 
 count = 0
 
+htmlEditorOwner = null
+cssEditorOwner = null
+
 socketIOListen = (server) ->
   io = socketio.listen(server)
 
@@ -41,6 +44,16 @@ socketIOListen = (server) ->
             )
           else
             socket.broadcast.emit('requestEditorValues')
+      )
+
+      socket.on(
+        'takeControl'
+        (data) ->
+          editorOwner = if data.editor == "html" then htmlEditorOwner else cssEditorOwner
+          if editorOwner != null
+            editorOwner.emit('removeControl', data)
+          socket.emit('giveControl', data)
+            
       )
   )
 
