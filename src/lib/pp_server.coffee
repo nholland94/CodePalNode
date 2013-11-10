@@ -53,7 +53,14 @@ socketIOListen = (server) ->
           if editorOwner != null
             editorOwner.emit('removeControl', data)
           socket.emit('giveControl', data)
-            
+
+          # editerOwner = socket ? in js, will this reassign the variable or memory data?
+          # It shares a pointer, but is the pointer reset? 
+
+          if data.editor == "html"
+            htmlEditorOwner = socket
+          else
+            cssEditorOwner = socket
       )
   )
 
