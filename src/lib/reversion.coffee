@@ -22,6 +22,9 @@ Tracker.prototype.removeLines = (startRow, endRow) ->
   
 Tracker.prototype.removeText = (row, startCol, endCol) ->
   oldLine = this.state[row]
+  console.log('debug my shit')
+  console.log(row)
+  console.log(this.state)
   newLine = oldLine.substring(0, startCol + 1)
   newLine += oldLine.substring(endCol + 1, oldLine.length)
 
