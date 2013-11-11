@@ -41,6 +41,11 @@ socketIOListen = (server) ->
               editor: data.editor
             }
           )
+
+          socket.emit(
+            'updateVersion'
+            tracker.version
+          )
           # socket.broadcast.emit('editorUpdate', data)
       )
 
