@@ -77,7 +77,7 @@ Tracker.prototype.stepBackwards = ->
 
 Tracker.prototype.addState = (data) ->
   this.history.splice(
-    if this.version == -1 then 0 else this.version
+    if this.version == -1 then 0 else this.version + 1
     0
     {
       action: data.action
