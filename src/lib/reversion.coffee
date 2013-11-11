@@ -85,6 +85,11 @@ Tracker.prototype.addState = (data) ->
       text: data.text
     }
   )
+
+  console.log('current history: ')
+  this.history.forEach (data) ->
+    console.log(data.action, ' ', data.text)
+
   this.stepForwards()
 
 Tracker.prototype.mergeState = (sessionVersion, data) ->
