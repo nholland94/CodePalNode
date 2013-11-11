@@ -96,3 +96,5 @@ Tracker.prototype.mergeState = (sessionVersion, data) ->
     this.apply(versionDiff)
 
   return this.getValue()
+
+exports.Tracker = Tracker
