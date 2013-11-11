@@ -5,6 +5,13 @@ count = 0
 htmlEditorOwner = null
 cssEditorOwner = null
 
+editors = {
+  html: []
+  css:  []
+}
+
+tracker = new Tracker("")
+
 socketIOListen = (server) ->
   io = socketio.listen(server)
 
@@ -25,7 +32,15 @@ socketIOListen = (server) ->
       socket.on(
         'editorUpdate'
         (data) ->
-          socket.broadcast.emit('editorUpdate', data)
+          socket.broadcast.emit(
+            'editorUpdate'
+            {
+              content: tracker.mergeState(data.version, data.content)
+              version: tracker.version
+              editor: data.editor
+            }
+          )
+          # socket.broadcast.emit('editorUpdate', data)
       )
 
       socket.on(
