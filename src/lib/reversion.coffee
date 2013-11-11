@@ -70,7 +70,7 @@ Tracker.prototype.stepBackwards = ->
     startCol = data.range.start.column
     endCol = data.range.end.column
 
-    removeText(row, startCol, endCol)
+    this.removeText(row, startCol, endCol)
 
 Tracker.prototype.addState = (data) ->
   this.history.splice(
