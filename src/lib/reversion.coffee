@@ -31,12 +31,15 @@ Tracker.prototype.removeText = (row, startCol, endCol) ->
   this.state[row] = newLine
 
 Tracker.prototype.insertText = (row, col, text) ->
-  oldLine = this.state[row]
-  newLine = oldLine.substring(0, col + 1)
-  newLine += text
-  newLine += oldLine.substring(col + 1, oldLine.length)
+  if text == "\n"
+    this.state.splice(row, 0, "")
+  else
+    oldLine = this.state[row]
+    newLine = oldLine.substring(0, col + 1)
+    newLine += text
+    newLine += oldLine.substring(col + 1, oldLine.length)
 
-  this.state[row] = newLine
+    this.state[row] = newLine
 
 Tracker.prototype.stepForwards = ->
   this.version++
