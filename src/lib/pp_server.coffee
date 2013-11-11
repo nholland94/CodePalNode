@@ -36,7 +36,7 @@ socketIOListen = (server) ->
           socket.broadcast.emit(
             'editorUpdate'
             {
-              content: tracker.mergeState(data.version, data.content)
+              contents: tracker.mergeState(data.version, data.contents)
               version: tracker.version
               editor: data.editor
             }
