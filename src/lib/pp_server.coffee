@@ -1,5 +1,5 @@
 socketio = require('socket.io')
-Tracker = require('reversion.js').Tracker
+Tracker = require('./reversion.js').Tracker
 
 count = 0
 
