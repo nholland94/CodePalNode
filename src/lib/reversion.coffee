@@ -22,9 +22,6 @@ Tracker.prototype.removeLines = (startRow, endRow) ->
   
 Tracker.prototype.removeText = (row, startCol, endCol) ->
   oldLine = this.state[row]
-  console.log('debug my shit')
-  console.log(row)
-  console.log(this.state)
   newLine = oldLine.substring(0, startCol + 1)
   newLine += oldLine.substring(endCol + 1, oldLine.length)
 
@@ -91,6 +88,8 @@ Tracker.prototype.addState = (data) ->
   this.stepForwards()
 
 Tracker.prototype.mergeState = (sessionVersion, data) ->
+  console.log('version: ', this.version)
+  console.log('version recieved: ', sessionVersion)
   if this.version == sessionVersion
     this.addState(data)
   else
