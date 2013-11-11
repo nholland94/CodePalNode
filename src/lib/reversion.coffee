@@ -1,7 +1,7 @@
 Tracker = (initialState) ->
   this.state = initialState.split("\n")
   this.history = []
-  this.version = 0
+  this.version = -1
 
 Tracker.prototype.getValue = ->
   return this.state.join("\n")
@@ -74,7 +74,7 @@ Tracker.prototype.stepBackwards = ->
 
 Tracker.prototype.addState = (data) ->
   this.history.splice(
-    this.version
+    if this.version == -1 then 0 else this.version
     0
     {
       action: data.action
