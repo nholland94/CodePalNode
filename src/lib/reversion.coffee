@@ -1,7 +1,7 @@
 Tracker = (initialState) ->
   this.state = initialState.split("\n")
   this.history = []
-  this.version = -1
+  this.version = 0
 
 Tracker.prototype.getValue = ->
   return this.state.join("\n")
@@ -73,8 +73,6 @@ Tracker.prototype.stepBackwards = ->
     removeText(row, startCol, endCol)
 
 Tracker.prototype.addState = (data) ->
-  this.version++ if this.version == -1
-
   this.history.splice(
     this.version
     0
