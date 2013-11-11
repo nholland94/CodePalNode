@@ -43,6 +43,7 @@ socketIOListen = (server) ->
           )
 
           console.log('current text: ', tracker.getValue())
+          console.log('current state: ', tracker.state)
 
           socket.emit(
             'updateVersion'
