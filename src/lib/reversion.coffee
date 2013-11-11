@@ -31,7 +31,7 @@ Tracker.prototype.insertText = (row, col, text) ->
   oldLine = this.state[row]
   newLine = oldLine.substring(0, col + 1)
   newLine += text
-  newLine += oldLine.substing(col + 1, oldLine.length)
+  newLine += oldLine.substring(col + 1, oldLine.length)
 
   this.state[row] = newLine
 
