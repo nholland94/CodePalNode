@@ -18,7 +18,7 @@ Tracker.prototype.apply = (n) ->
     this.stepForwards()
 
 Tracker.prototype.removeLines = (startRow, endRow) ->
-  firstHalf = this.state.slice(0, startRow)
+  firstHalf = this.state.slice(0, startRow - 1)
   secondHalf = this.state.slice(endRow + 1, this.state.length)
   console.log('first slice: ', firstHalf)
   console.log('second slice: ', secondHalf)
@@ -49,11 +49,14 @@ Tracker.prototype.stepForwards = ->
   if data.action == 'removeLines'
     this.removeLines(data.range.start.row, data.range.end.row)
   else if data.action == 'removeText'
-    row = data.range.start.row
-    startCol = data.range.start.column
-    endCol = data.range.end.column
+    if data.text == "\n"
+      this.removeLines(data.range.start.row, data.range.end.row)
+    else
+      row = data.range.start.row
+      startCol = data.range.start.column
+      endCol = data.range.end.column
 
-    this.removeText(row, startCol, endCol)
+      this.removeText(row, startCol, endCol)
   else # this.data == 'insertText' 
     row = data.range.start.row
     col = data.range.start.column
