@@ -12,14 +12,14 @@ Tracker.prototype.currentVersion = ->
 Tracker.prototype.rollback = (n) ->
   for i in [1..n] by 1
     this.stepBackwards()
-    console.log('**v: ', this.version
-    console.log('**** ', this.getValue()
+    console.log('**v: ', this.version)
+    console.log('**** ', this.getValue())
 
 Tracker.prototype.apply = (n) ->
   for i in [1..n] by 1
     this.stepForwards()
-    console.log('**v: ', this.version
-    console.log('**** ', this.getValue()
+    console.log('**v: ', this.version)
+    console.log('**** ', this.getValue())
 
 Tracker.prototype.removeLines = (startRow, endRow) ->
   firstHalf = this.state.slice(0, startRow + 1)
