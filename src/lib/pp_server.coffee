@@ -13,6 +13,8 @@ editors = {
 
 tracker = new Tracker("")
 
+versions = {}
+
 socketIOListen = (server) ->
   io = socketio.listen(server)
 
@@ -22,6 +24,8 @@ socketIOListen = (server) ->
       console.log('recieved connection from: ', socket.id)
       count++
       console.log('there are a total of ' + count + ' users connected')
+
+      versions[socket.id] = -1
 
       socket.on(
         'disconnect'
@@ -33,17 +37,23 @@ socketIOListen = (server) ->
       socket.on(
         'editorUpdate'
         (data) ->
+          broadcastData = {
+            contents: tracker.mergeState(
+              if versions[socket.id] > data.version then versions[socket.id] else data.versions
+              data.contents)
+            version: tracker.version
+            editor: data.editor
+          }
+
           socket.broadcast.emit(
             'editorUpdate'
-            {
-              contents: tracker.mergeState(data.version, data.contents)
-              version: tracker.version
-              editor: data.editor
-            }
+            broadcastData
           )
 
           console.log('current text: ', tracker.getValue())
           console.log('current state: ', tracker.state)
+
+          versions[socket.id] = broadcastData.version
 
           socket.emit(
             'updateVersion'
