@@ -58,35 +58,35 @@ Tracker.prototype.executeStep = (data) ->
       endCol = data.range.end.column
 
       this.removeText(row, startCol, endCol)
-  else # this.data == 'insertText' 
+  else # data.action == 'insertText' 
     row = data.range.start.row
     col = data.range.start.column
 
     this.insertText(row, col, data.text)
 
-
-Tracker.prototype.stepForwards = ->
-  this.version++
-  this.executeStep(this.currentVersion())
-
-Tracker.prototype.stepBackwards = ->
-  this.version--
-  data = this.currentVersion()
-
+Tracker.prototype.undoStep = (data) ->
   if data.action == 'removeLines'
     # does not take into account if multiple lines were deleted
     this.state.splice(data.range.start.row, 0, "")
   else if data.action == 'removeText'
     row = data.range.start.row
     col = data.range.start.column
-    
+
     this.insertText(row, col, data.text)
-  else
+  else # data.action == 'insertText'
     row = data.range.start.row
     startCol = data.range.start.column
     endCol = data.range.end.column
 
     this.removeText(row, startCol, endCol)
+
+Tracker.prototype.stepForwards = ->
+  this.version++
+  this.executeStep(this.currentVersion())
+
+Tracker.prototype.stepBackwards = ->
+  this.undoStep(this.currentVersion())
+  this.version--
 
 Tracker.prototype.spliceHistory = (data) ->
   this.history.splice(
