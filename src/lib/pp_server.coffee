@@ -39,6 +39,7 @@ socketIOListen = (server) ->
         (data) ->
           console.log('##versions hash: ', versions)
           console.log('##socket id: ', socket.id)
+          console.log('##text: ', data.contents.text)
 
           broadcastData = {
             contents: tracker.mergeState(
