@@ -80,7 +80,7 @@ Tracker.prototype.undoStep = (data) ->
     startCol = data.range.start.column
     endCol = data.range.end.column
 
-    this.removeText(row, startCol, endCol)
+    this.removeText(row, startCol + 1, endCol + 1)
 
 Tracker.prototype.stepForwards = ->
   this.version++
