@@ -29,7 +29,7 @@ Tracker.prototype.removeText = (row, startCol, endCol) ->
 
 Tracker.prototype.insertText = (row, col, text) ->
   if text == "\n"
-    this.state.splice(row, 0, "")
+    this.state.splice(row + 1, 0, "")
   else
     oldLine = this.state[row]
     newLine = oldLine.substring(0, col + 1)
