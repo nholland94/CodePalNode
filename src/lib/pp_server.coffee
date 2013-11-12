@@ -37,8 +37,8 @@ socketIOListen = (server) ->
       socket.on(
         'editorUpdate'
         (data) ->
-          console.log('recieved version: ', data.version)
-          console.log('current version: ', tracker.version)
+          console.log('##versions hash: ', versions)
+          console.log('##socket id: ', socket.id)
 
           broadcastData = {
             contents: tracker.mergeState(
@@ -54,7 +54,6 @@ socketIOListen = (server) ->
           )
 
           console.log('current text: ', tracker.getValue())
-          console.log('current state: ', tracker.state)
 
           versions[socket.id] = broadcastData.version
 
