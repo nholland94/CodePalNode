@@ -12,10 +12,14 @@ Tracker.prototype.currentVersion = ->
 Tracker.prototype.rollback = (n) ->
   for i in [1..n] by 1
     this.stepBackwards()
+    console.log('**v: ', this.version
+    console.log('**** ', this.getValue()
 
 Tracker.prototype.apply = (n) ->
   for i in [1..n] by 1
     this.stepForwards()
+    console.log('**v: ', this.version
+    console.log('**** ', this.getValue()
 
 Tracker.prototype.removeLines = (startRow, endRow) ->
   firstHalf = this.state.slice(0, startRow + 1)
@@ -115,9 +119,16 @@ Tracker.prototype.mergeState = (sessionVersion, data) ->
     ###
 
     # append state
+    console.log('************')
+    console.log('**STEPPING BACKWARDS ', versionDiff, ' LEVELS')
     this.rollback(versionDiff)
+    console.log('**EXECUTING STEP')
     this.executeStep(data)
+    console.log('**STEP EXECUTED; DATA: ', this.getValue())
+    console.log('**STEPPING FORWARDS ', versionDiff, ' LEVELS')
     this.apply(versionDiff)
+
+    console.log('************')
 
     this.spliceHistory(data)
     this.version++

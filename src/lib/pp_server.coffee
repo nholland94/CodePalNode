@@ -37,6 +37,7 @@ socketIOListen = (server) ->
       socket.on(
         'editorUpdate'
         (data) ->
+          console.log('#############################')
           console.log('##versions hash: ', versions)
           console.log('##socket id: ', socket.id)
           console.log('##text: ', data.contents.text)
