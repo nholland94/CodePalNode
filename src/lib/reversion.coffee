@@ -65,6 +65,8 @@ Tracker.prototype.executeStep = (data) ->
     this.insertText(row, col, data.text)
 
 Tracker.prototype.undoStep = (data) ->
+  console.log(data.text)
+
   if data.action == 'removeLines'
     # does not take into account if multiple lines were deleted
     this.state.splice(data.range.start.row, 0, "")
