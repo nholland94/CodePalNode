@@ -59,6 +59,13 @@ socketIOListen = (server) ->
             'updateVersion'
             tracker.version
           )
+
+          # debug code
+          broadcastData.editor = "css"
+          socket.emit(
+            'editorUpdate'
+            broadcastData
+          )
           # socket.broadcast.emit('editorUpdate', data)
       )
 
