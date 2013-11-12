@@ -37,6 +37,9 @@ socketIOListen = (server) ->
       socket.on(
         'editorUpdate'
         (data) ->
+          console.log('recieved version: ', data.version)
+          console.log('current version: ', tracker.version)
+
           broadcastData = {
             contents: tracker.mergeState(
               if versions[socket.id] > data.version then versions[socket.id] else data.versions
