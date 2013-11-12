@@ -122,7 +122,7 @@ Tracker.prototype.mergeState = (sessionVersion, data) ->
     console.log('************')
     console.log('**history: ')
     i = 0
-    history.forEach (h) ->
+    this.history.forEach (h) ->
       console.log('i: ', i, '; h.action: ', h.action, '; h.start: ', h.range.start.row, ',', h.range.start.column, '; h.text: ', h.text)
       i++
     console.log('**STEPPING BACKWARDS ', versionDiff, ' LEVELS')
