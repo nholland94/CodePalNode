@@ -18,7 +18,7 @@ Tracker.prototype.apply = (n) ->
     this.stepForwards()
 
 Tracker.prototype.removeLines = (startRow, endRow) ->
-  firstHalf = this.state.slice(0, startRow - 1)
+  firstHalf = this.state.slice(0, startRow + 1)
   secondHalf = this.state.slice(endRow + 1, this.state.length)
   console.log('first slice: ', firstHalf)
   console.log('second slice: ', secondHalf)
