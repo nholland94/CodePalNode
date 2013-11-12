@@ -16,7 +16,9 @@ tracker = new Tracker("")
 versions = {}
 
 socketIOListen = (server) ->
-  io = socketio.listen(server, { log: false })
+  io = socketio.listen(server)
+
+  io.set('log level', 1)
 
   io.sockets.on(
     'connection'
