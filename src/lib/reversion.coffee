@@ -22,8 +22,8 @@ Tracker.prototype.removeLines = (startRow, endRow) ->
   
 Tracker.prototype.removeText = (row, startCol, endCol) ->
   oldLine = this.state[row]
-  newLine = oldLine.substring(0, startCol + 1)
-  newLine += oldLine.substring(endCol + 1, oldLine.length)
+  newLine = oldLine.substring(0, startCol)
+  newLine += oldLine.substring(endCol, oldLine.length)
 
   this.state[row] = newLine
 
