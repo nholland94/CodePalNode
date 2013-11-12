@@ -42,10 +42,7 @@ Tracker.prototype.insertText = (row, col, text) ->
 
     this.state[row] = newLine
 
-Tracker.prototype.stepForwards = ->
-  this.version++
-  data = this.currentVersion()
-
+Tracker.prototype.executeStep = (data) ->
   if data.action == 'removeLines'
     this.removeLines(data.range.start.row, data.range.end.row)
   else if data.action == 'removeText'
@@ -62,6 +59,11 @@ Tracker.prototype.stepForwards = ->
     col = data.range.start.column
 
     this.insertText(row, col, data.text)
+
+
+Tracker.prototype.stepForwards = ->
+  this.version++
+  this.executeStep(this.currentVersion())
 
 Tracker.prototype.stepBackwards = ->
   this.version--
@@ -82,7 +84,7 @@ Tracker.prototype.stepBackwards = ->
 
     this.removeText(row, startCol, endCol)
 
-Tracker.prototype.addState = (data) ->
+Tracker.prototype.spliceHistory = (data) ->
   this.history.splice(
     if this.version == -1 then 0 else this.version + 1
     0
@@ -93,6 +95,9 @@ Tracker.prototype.addState = (data) ->
     }
   )
 
+Tracker.prototype.addState = (data) ->
+  this.spliceHistory(data)
+
   this.stepForwards()
 
 Tracker.prototype.mergeState = (sessionVersion, data) ->
@@ -102,9 +107,20 @@ Tracker.prototype.mergeState = (sessionVersion, data) ->
     this.addState(data)
   else
     versionDiff = this.version - sessionVersion
+    ### 
+    # insert state
     this.rollback(versionDiff)
-    this.addState(data)
+    this.addStatE(data)
     this.apply(versionDiff)
+    ###
+
+    # append state
+    this.rollback(versionDiff)
+    this.executeStep(data)
+    this.apply(versionDiff)
+
+    this.spliceHistory(data)
+    this.version++
 
   return this.getValue()
 
