@@ -39,11 +39,11 @@ socketIOListen = (server) ->
       socket.on(
         'editorUpdate'
         (data) ->
-          console.log('#############################')
-          console.log('##versions hash: ', versions)
-          console.log('##socket id: ', socket.id)
-          console.log('##text: ', data.contents.text)
-
+          # console.log('#############################')
+          # console.log('##versions hash: ', versions)
+          # console.log('##socket id: ', socket.id)
+          # console.log('##text: ', data.contents.text)
+          
           broadcastData = {
             contents: tracker.mergeState(
               if versions[socket.id] > data.version then versions[socket.id] else data.version
@@ -65,15 +65,7 @@ socketIOListen = (server) ->
             'updateVersion'
             tracker.version
           )
-
-          # debug code
-          broadcastData.editor = "css"
-          socket.emit(
-            'editorUpdate'
-            broadcastData
-          )
-          # socket.broadcast.emit('editorUpdate', data)
-      )
+     )
 
       socket.on(
         'editorValues'

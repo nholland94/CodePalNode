@@ -12,20 +12,14 @@ Tracker.prototype.currentVersion = ->
 Tracker.prototype.rollback = (n) ->
   for i in [1..n] by 1
     this.stepBackwards()
-    console.log('**v: ', this.version)
-    console.log('**** ', this.getValue())
 
 Tracker.prototype.apply = (n) ->
   for i in [1..n] by 1
     this.stepForwards()
-    console.log('**v: ', this.version)
-    console.log('**** ', this.getValue())
 
 Tracker.prototype.removeLines = (startRow, endRow) ->
   firstHalf = this.state.slice(0, startRow + 1)
   secondHalf = this.state.slice(endRow + 1, this.state.length)
-  console.log('first slice: ', firstHalf)
-  console.log('second slice: ', secondHalf)
   this.state = firstHalf.concat(secondHalf)
   
 Tracker.prototype.removeText = (row, startCol, endCol) ->
@@ -65,10 +59,7 @@ Tracker.prototype.executeStep = (data) ->
     this.insertText(row, col, data.text)
 
 Tracker.prototype.undoStep = (data) ->
-  console.log(data.text)
-
   if data.action == 'removeLines'
-    # does not take into account if multiple lines were deleted
     this.state.splice(data.range.start.row, 0, "")
   else if data.action == 'removeText'
     row = data.range.start.row
@@ -107,36 +98,16 @@ Tracker.prototype.addState = (data) ->
   this.stepForwards()
 
 Tracker.prototype.mergeState = (sessionVersion, data) ->
-  console.log('version: ', this.version)
-  console.log('version recieved: ', sessionVersion)
   if this.version == sessionVersion
     this.addState(data)
   else
     versionDiff = this.version - sessionVersion
-    ### 
-    # insert state
     this.rollback(versionDiff)
-    this.addStatE(data)
-    this.apply(versionDiff)
-    ###
 
-    # append state
-    console.log('************')
-    console.log('**history: ')
-    i = 0
-    this.history.forEach (h) ->
-      console.log('i: ', i, '; h.action: ', h.action, '; h.start: ', h.range.start.row, ',', h.range.start.column, '; h.text: ', h.text)
-      i++
-    console.log('**STEPPING BACKWARDS ', versionDiff, ' LEVELS')
-    this.rollback(versionDiff)
-    console.log('**EXECUTING STEP')
     this.executeStep(data)
-    console.log('**STEP EXECUTED; DATA: ', this.getValue())
-    console.log('**STEPPING FORWARDS ', versionDiff, ' LEVELS')
+
     this.apply(versionDiff)
-
-    console.log('************')
-
+ 
     this.spliceHistory(data)
     this.version++
 
