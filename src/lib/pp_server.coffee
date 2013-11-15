@@ -39,6 +39,7 @@ socketIOListen = (server) ->
       socket.on(
         'editorUpdate'
         (data) ->
+          ###
           broadcastData = {
             contents: tracker.mergeState(
               if versions[socket.id] > data.version then versions[socket.id] else data.version
@@ -60,6 +61,9 @@ socketIOListen = (server) ->
             'updateVersion'
             tracker.version
           )
+          ###
+
+          socket.broadcast.emit(data)
       )
 
       socket.on(
