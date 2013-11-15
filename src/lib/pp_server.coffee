@@ -63,7 +63,7 @@ socketIOListen = (server) ->
           )
           ###
 
-          socket.broadcast.emit(data)
+          socket.broadcast.emit('editorUpdate', data)
       )
 
       socket.on(
